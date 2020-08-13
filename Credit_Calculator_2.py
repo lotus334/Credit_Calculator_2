@@ -14,7 +14,22 @@ if len(args) != 4:
 else:
     for element in range(1, len(args)):
         args[element] = args[element].lstrip('-').split('=')
-    print(args)
+        if args[element][0] == 'type':
+            credit_type = args[element][1]
+        elif args[element][0] == 'principal':
+            principal = args[element][1]
+        elif args[element][0] == 'periods':
+            periods = args[element][1]
+        elif args[element][0] == 'interest':
+            interest = args[element][1]
+        elif args[element][0] == 'payment':
+            payment = args[element][1]
+    try:
+        if credit_type != None and principal != None and periods != None:
+            print(credit_type)
+        else:
+            print('Incorrect parameters')
+    except NameError 'Incorrect parameters'
     
 '''        
 def mon_payment(principals, period):
