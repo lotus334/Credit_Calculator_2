@@ -27,16 +27,11 @@ def find_monthly_payment(principal, periods, annual_interest):
     print('Your annuity payment = {}!'.format(math.ceil(payment)))
     overpayment(periods, math.ceil(payment), principal)
     
-def find_credit_principal():
-    print('Enter the monthly_payment:')
-    payment = float(input())
-    print('Enter the count of periods:')
-    periods = int(input())
-    print('Enter the credit interest:')
-    annual_interest = float(input())
+def find_credit_principal(periods, payment, annual_interest):
     nominal_interest = annual_interest / (12 * 100)
-    principal = payment / ((nominal_interest * (1 + nominal_interest) ** periods) / (((1 + nominal_interest) ** periods) - 1))
-    print(principal)
+    principal = int(payment / ((nominal_interest * (1 + nominal_interest) ** periods) / (((1 + nominal_interest) ** periods) - 1)))
+    print(f'Your credit principal = {principal}!')
+    overpayment(periods, math.ceil(payment), principal)
 
 args = sys.argv
 
@@ -72,8 +67,9 @@ else:
         if credit_type == 'annuity' and principal > 0 and periods > 0 and annual_interest >= 0:
             find_monthly_payment(principal, periods, annual_interest)
         elif credit_type == 'annuity' and periods > 0 and payment > 0 and annual_interest >= 0:
-            print('Your credit principal = 800018!' + '\n' +
-                  'Overpayment = 246622')
+            find_credit_principal(periods, payment, annual_interest)
+#            print('Your credit principal = 800018!' + '\n' +
+#                  'Overpayment = 246622')
         elif credit_type == 'annuity' and principal > 0 and payment > 0 and annual_interest >= 0:
             count_of_month(principal, payment, annual_interest)
         elif credit_type == 'diff' and principal > 0 and periods > 0 and annual_interest >= 0:
