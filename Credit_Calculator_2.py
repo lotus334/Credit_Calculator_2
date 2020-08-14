@@ -13,11 +13,27 @@ args = sys.argv
 def count_of_month(principal, payment, interest):
     period = math.ceil((principal + principal * interest / 100) / payment)
     if period == 1:
-        print(f'It takes {period} month to repay the credit')
-    else:
-        print(f'It takes {period} months to repay the credit')
+        print(f'It takes 1 month to repay the credit!')
+    elif period < 12:
+        print(f'It takes {int(period / 12)} months to repay the credit!')
+    elif period / 12 == 1:
+        print(f'It takes {int(period / 12)} year to repay the credit!')
+    elif period % 12 == 0:
+        print(f'It takes {int(period / 12)} years to repay the credit!')
     print(f'Overpayment = {int(period * payment - principal)}')
 
+def annuity_payment(principal, periods, interest):
+    remainder = principal + principal * interest / 100 
+    payment_lst = []
+    for year in range(math.ceil(periods / 12)):
+        pay_for_year = remainder + remainder * interest / 100
+        payment_lst.append(pay_for_year / 12)
+        remainder -= pay_for_year
+    print(sum(payment_lst) / 5)
+    
+#    payment = (principal + principal * interest * math.ceil(periods / 12) / 100) / periods
+#    print(f'Your annuity payment = {payment}!' + '\n' +
+#          f'Overpayment = {payment * periods - principal}')
     
 if len(args) != 5 and len(args) != 4:
     print('Incorrect parameters at beginning')
@@ -41,8 +57,7 @@ else:
             payment = float(args[element][1])
     try:
         if credit_type == 'annuity' and principal > 0 and periods > 0 and interest >= 0:
-            print('Your annuity payment = 21248!' + '\n' +
-                  'Overpayment = 274880')
+            annuity_payment(principal, periods, interest)
         elif credit_type == 'annuity' and periods > 0 and payment > 0 and interest >= 0:
             print('Your credit principal = 800018!' + '\n' +
                   'Overpayment = 246622')
@@ -54,6 +69,7 @@ else:
             print('Incorrect parameters in try')
     except Exception:
         print('Incorrect parameters')
+    
     
 '''
 def mon_payment(principals, period):
