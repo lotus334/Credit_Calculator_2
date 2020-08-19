@@ -39,6 +39,18 @@ def count_of_month(principal, payment, annual_interest):
     period = math.ceil((principal + principal * annual_interest / 100) / payment)
     if period == 1:
         print(f'It takes {period} month to repay the credit')
+    elif period % 12 == 0 and period // 12 == 1:
+        print(f'It takes {period // 12} year to repay the credit')
+    elif period % 12 == 0:
+        print(f'It takes {period // 12} years to repay the credit')
+    elif period > 12 and period // 12 == 1 and period % 12 == 1:
+        print(f'It takes {period // 12} year and {period % 12} month to repay the credit')
+    elif period > 12 and period // 12 == 1:
+        print(f'It takes {period // 12} year and {period % 12} months to repay the credit')
+    elif period > 12 and period % 12 == 1:
+        print(f'It takes {period // 12} years and {period % 12} month to repay the credit')
+    elif period > 12:
+        print(f'It takes {period // 12} years and {period % 12} months to repay the credit')
     else:
         print(f'It takes {period} months to repay the credit')
     overpayment(period, payment, principal)
